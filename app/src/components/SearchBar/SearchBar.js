@@ -42,7 +42,7 @@ class SearchBar extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} id='searchBarContainer'>
         {/* <label> */}
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" value={this.state.value} onChange={this.handleChange} id='searchField' />
         {/* </label> */}
         <button type="submit" value="Submit" id="submit">
           <img src={searchIcon} alt="wrong url" id="searchIcon" />

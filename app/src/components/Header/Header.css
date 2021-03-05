@@ -12,3 +12,13 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#logo {
+    /* margin: 10%; */
+    position: relative;
+    right: 22.5%;
+}
+
+#searchBar {
+    
+}
