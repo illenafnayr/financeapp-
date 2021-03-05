@@ -1,8 +1,9 @@
 
-import axios from "axios";
+// import axios from "axios";
 import React from "react";
 // import ChartJs from "chart.js";
-
+import searchIcon from './searchIcon.png'
+import './SearchBar.css'
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -32,19 +33,20 @@ class SearchBar extends React.Component {
     //     this.sendData()
     //   })
     // this.props.searchQuery()
-    console.log(this.state.value)
-    const searchQuery = `${this.state.value}`
-    this.props.searchQuery(searchQuery.toUpperCase())
+    // console.log(this.state.value)
+    // const searchQuery = `${this.state.value}`
+    // this.props.searchQuery(searchQuery.toUpperCase())
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Symbol:
+      <form onSubmit={this.handleSubmit} id='searchBarContainer'>
+        {/* <label> */}
           <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+        {/* </label> */}
+        <button type="submit" value="Submit" id="submit">
+          <img src={searchIcon} alt="wrong url" id="searchIcon" />
+        </button>
       </form>
     );
   }

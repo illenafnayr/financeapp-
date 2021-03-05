@@ -1,0 +1,14 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#header {
+    /* border: 1px solid gold; */
+    height: 20vh;
+    width: 100vw;
+    background-color: rgb(84, 75, 157);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
