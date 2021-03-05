@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react'
 import StockChart from '../../components/Chart/Chart.js'
 import axios from 'axios'
-import SearchBar from '../../components/SearchBar/SearchBar.js'
+// import SearchBar from '../../components/SearchBar/SearchBar.js'
+import Header from '../../components/Header/Header.js'
 const API_KEY = process.env.API_KEY
 
 function App() {
@@ -42,8 +43,9 @@ function App() {
         } else {
             return (
               <div className="App">
+                <Header />
                 <h1>NASCAR</h1>
-                <SearchBar />
+                {/* <SearchBar /> */}
                 <StockChart chartData={chartData} companyData={companyData}/>
               </div>
             )
