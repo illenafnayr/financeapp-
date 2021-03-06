@@ -1,9 +1,20 @@
-import { useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Chart from 'chart.js'
+import './Chart.css'
 
 const StockChart = ({chartData, companyData}) => {
 
+    const [timeFrame, setTimeFrame] = useState('day')
     const canvas = useRef()
+
+    const {day, week} = chartData
+    const timeSpan = () => {
+        switch (timeFrame) {
+            case 'day': return day
+            case 'week': return week
+            default: return day
+        }
+    }
 
     useEffect(() => {
         if (canvas.current && chartData) {
@@ -11,8 +22,8 @@ const StockChart = ({chartData, companyData}) => {
                 type: 'line',
                 data: {
                     datasets: [{
-                        label: `${companyData['2. Symbol']} Price`,
-                        data: chartData,
+                        label: `${companyData.Symbol} Price`,
+                        data: timeSpan(),
                         backgroundColor: ['rgba(255, 99, 132, 0.2)'],
                         borderColor: ['rgba(255, 99, 132, 1)'],
                         borderWidth: 1,
@@ -22,7 +33,7 @@ const StockChart = ({chartData, companyData}) => {
                 options: {
                     lineHeightAnnotation: {
                         always: true,
-                        hover: false,
+                        hover: true,
                         lineWeight: 1.5
                     },
                     animation: {
@@ -35,11 +46,15 @@ const StockChart = ({chartData, companyData}) => {
                             type: 'time',
                             time: {
                                 displayFormats: {
-                                    unit: 'day',
+                                    hour: 'hA',
+                                    day: 'MMM D',
                                 }
                             },
                             distribution: 'series',
-                            bounds: 'data'
+                            bounds: 'data',
+                            ticks: {
+                                source: 'auto',
+                            }
                         }],
                         yAxes: [{
                             ticks: {
@@ -50,12 +65,22 @@ const StockChart = ({chartData, companyData}) => {
                 }
             })
         }
-    }, [])
+    }, [timeFrame])
 
     const render = () => {
         return (
             <div id="chart-container">
-                <canvas ref={canvas} width="400" height="400"></canvas>
+                <div id="chart-wrapper">
+                    <canvas ref={canvas} width="400" height="400"></canvas>
+                    <div id="chart-button-container">
+                        <button className="chart-button" onClick={() => {
+                            setTimeFrame('day')
+                        }}>Day</button>
+                        <button className="chart-button" onClick={() => {
+                            setTimeFrame('week')
+                        }}>Week</button>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -4,10 +4,12 @@ import StockChart from '../../components/Chart/Chart.js'
 import axios from 'axios'
 // import SearchBar from '../../components/SearchBar/SearchBar.js'
 import Header from '../../components/Header/Header.js'
+import './Show.css'
 const API_KEY = process.env.API_KEY
 
 function App() {
 
+    const [asset, setAsset] = useState('IBM')
     const [chartData, setChartData] = useState({})
     const [companyData, setCompanyData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -15,7 +17,7 @@ function App() {
     const formatData = (data) => {
         return Object.entries(data).map(([key, value]) => {
             return {
-                t: key,
+                x: key,
                 y: value['4. close'] - 0
             }
         })
@@ -23,13 +25,27 @@ function App() {
 
     const apiCall = async () => {
         setIsLoading(true)
-        const formatedData = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=IBM&apikey=demo`)
-            .then((res) => {
-                console.log(res.data)
-                setCompanyData(res.data['Meta Data'])
-                return formatData(res.data['Weekly Time Series'])
-            })
-        setChartData(formatedData)
+        const [daily, weekly] = await Promise.all([
+            axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${asset}&interval=5min&apikey=demo`)
+                .then((res) => {
+                    console.log(res.data)
+                    return formatData(res.data['Time Series (5min)'])
+                }),
+            axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${asset}&interval=60min&apikey=${API_KEY}`)
+                .then((res) => {
+                    console.log(res.data)
+                    return formatData(res.data['Time Series (60min)'])
+                }),
+            axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${asset}&apikey=demo`)
+                .then((res) => {
+                    console.log(res.data)
+                    setCompanyData(res.data)
+                }),
+        ])
+        setChartData({
+            day: daily,
+            week: weekly
+        })
         setIsLoading(false)
     }
 
@@ -44,7 +60,7 @@ function App() {
             return (
               <div className="App">
                 <Header />
-                <h1>NASCAR</h1>
+                <h1>{companyData.Name}</h1>
                 {/* <SearchBar /> */}
                 <StockChart chartData={chartData} companyData={companyData}/>
               </div>
