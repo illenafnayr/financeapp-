@@ -1,0 +1,7 @@
+#chart {
+    height: 100%;
+    max-width: 100%;
+    padding: 2.5em;
+    border-radius: .25em;
+    box-shadow: 2px 2px 5px grey;
+}
