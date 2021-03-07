@@ -4,6 +4,7 @@ import StockChart from '../../components/Chart/Chart.js'
 import axios from 'axios'
 // import SearchBar from '../../components/SearchBar/SearchBar.js'
 import Header from '../../components/Header/Header.js'
+import './Show.css'
 const API_KEY = process.env.API_KEY
 
 function App() {
