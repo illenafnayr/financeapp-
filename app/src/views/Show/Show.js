@@ -26,9 +26,17 @@ function App() {
             }
         })
     }
+    
+    // let query;
+    const search = (param) => {
+        console.log('param', param)
+        // query = param;
+        setAsset(param)
+    }
 
     const apiCall = async () => {
         setIsLoading(true)
+        
         const [daily, weekly] = await Promise.all([
             axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${asset}&interval=5min&apikey=${AV_API_KEY}`)
                 .then((res) => {
@@ -45,7 +53,7 @@ function App() {
                     console.log(res.data)
                     setCompanyData(res.data)
                 }),
-            axios.get(`https://newsapi.org/v2/everything?q=${asset}&apiKey=e2c26c979a494e348a752968f8ae1a7e`)
+            axios.get(`https://newsapi.org/v2/everything?q=${asset}&apiKey=dedd9884f30c44fc94438bf0a0730249`)
                 .then((res) => {
                     console.log(res.data.articles)
                     setCompanyNews(res.data.articles)
@@ -59,8 +67,9 @@ function App() {
     }
 
     useEffect(() => {
+        console.log("asset: ", asset)
         apiCall()
-    }, [])
+    }, [asset])
 
     const render = () => {
         if (isLoading) {
@@ -68,7 +77,7 @@ function App() {
         } else {
             return (
               <div className="App">
-                <Header />
+                <Header search={search}/>
                 <main>
                     <h1>{companyData.Name}</h1>
                     {/* <SearchBar /> */}
