@@ -19,9 +19,9 @@ class SearchBar extends React.Component {
   }
 
   // sendData = () => {
-  //   console.log(this.state.value)
-  //   const searchQuery = `${this.state.value}`
-  //   this.props.searchQuery(searchQuery.toUpperCase())
+  //   let searchQuery = this.state.value
+  //   console.log(searchQuery)
+  //   this.props.searchQuery(searchQuery)
   // }
 
   handleSubmit(event) {
@@ -32,10 +32,9 @@ class SearchBar extends React.Component {
     //     console.log(response.data)
     //     this.sendData()
     //   })
-    // this.props.searchQuery()
-    // console.log(this.state.value)
-    // const searchQuery = `${this.state.value}`
-    // this.props.searchQuery(searchQuery.toUpperCase())
+    let searchQuery = this.state.value
+    // console.log(searchQuery)
+    this.props.onSearch(searchQuery)
   }
 
   render() {

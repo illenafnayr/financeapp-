@@ -17,7 +17,13 @@ body {
     /* margin: 10%; */
     position: relative;
     right: 22.5%;
+    /* filter: saturate(100%); */
 }
+
+/* svg {
+    fill: #ff6a07;
+    color: #ff6a07;;
+} */
 
 #searchBar {
     
