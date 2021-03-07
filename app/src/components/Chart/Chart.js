@@ -69,9 +69,8 @@ const StockChart = ({chartData, companyData}) => {
 
     const render = () => {
         return (
-            <div id="chart-container">
-                <div id="chart-wrapper">
-                    <canvas ref={canvas} width="400" height="400"></canvas>
+            <div id="chart">
+                    <canvas ref={canvas} width="200" height="200"></canvas>
                     <div id="chart-button-container">
                         <button className="chart-button" onClick={() => {
                             setTimeFrame('day')
@@ -80,7 +79,6 @@ const StockChart = ({chartData, companyData}) => {
                             setTimeFrame('week')
                         }}>Week</button>
                     </div>
-                </div>
             </div>
         )
     }
