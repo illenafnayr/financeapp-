@@ -53,10 +53,10 @@ function App() {
                     console.log(res.data)
                     setCompanyData(res.data)
                 }),
-            axios.get(`https://newsapi.org/v2/everything?q=${asset}&apiKey=dedd9884f30c44fc94438bf0a0730249`)
+            axios.get(`https://api.polygon.io/v1/meta/symbols/${asset}/news?perpage=50&page=1&apiKey=HvlrSrp7V4UMAWFLEpHiW3FpC9VkDpVU`)
                 .then((res) => {
-                    console.log(res.data.articles)
-                    setCompanyNews(res.data.articles)
+                    console.log(res.data)
+                    setCompanyNews(res.data)
                 })
         ])
         setChartData({
@@ -100,14 +100,14 @@ function App() {
                         </div>
                         <div id="news-container">
                             <h2>In The News</h2>
-                            {companyNews.slice(0, 3).map((article) => {
+                            {companyNews.slice(0, 4).map((article) => {
                                 return (
                                     <div className="news-item" key={article.title}>
                                         <div className="news-title">
                                             <label>{article.title}</label>
                                             <p><a href={article.url}>read more</a></p>
                                         </div>
-                                        <img className="news-img" src={article.urlToImage} alt="" />
+                                        <img className="news-img" src={article.image} alt="" />
                                     </div>
                                 )
                             })}
